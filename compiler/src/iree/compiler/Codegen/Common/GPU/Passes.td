@@ -111,6 +111,8 @@ def GPULowerToUKernelsPass :
   let dependentDialects = [
     "::mlir::iree_compiler::IREE::Codegen::IREECodegenDialect",
     "::mlir::iree_compiler::IREE::GPU::IREEGPUDialect",
+    "::mlir::arith::ArithDialect",
+    "::mlir::tensor::TensorDialect",
   ];
 }
 
@@ -245,16 +247,6 @@ def GPUApplyTilingLevelPass :
            /*default=*/"false",
            "Allow pad fusion to generate zero size slices">
   ];
-}
-
-def GPUMaterializeHostEncodingPass :
-    Pass<"iree-codegen-gpu-materialize-host-encoding", "mlir::ModuleOp"> {
-  let summary = "Materialize the encoding for tensor as specified by the backend.";
-}
-
-def GPUMaterializeDeviceEncodingPass :
-    InterfacePass<"iree-codegen-gpu-materialize-device-encoding", "mlir::FunctionOpInterface"> {
-  let summary = "Materialize the encoding for tensor as specified by the backend.";
 }
 
 def GPUTensorTileToSerialLoopsPass :
